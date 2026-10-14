@@ -1,0 +1,666 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Serenity Hub</title>
+
+<style>
+:root {
+  --pink: #ff3ca6;
+  --light: #ff91d0;
+  --purple: #bd4dff;
+  --bg: #08050b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: #fff;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+button { font-family: inherit; }
+
+#particles {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.glow {
+  position: fixed;
+  width: 200px;
+  height: 200px;
+  background: #ff168e;
+  filter: blur(90px);
+  opacity: .12;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.glow.one { top: -80px; left: -80px; }
+.glow.two {
+  right: -100px;
+  bottom: -80px;
+  background: #a52aff;
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 460px;
+  min-height: 100vh;
+  margin: auto;
+}
+
+/* HEADER */
+header {
+  padding: 13px 14px 10px;
+  background: rgba(8,5,11,.95);
+  border-bottom: 1px solid #ff3ca632;
+  backdrop-filter: blur(15px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 13px;
+}
+
+.logo-small {
+  width: 37px;
+  height: 37px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  font-size: 23px;
+  font-weight: 900;
+  font-style: italic;
+  background: linear-gradient(145deg,#ff91d0,#ff168e,#921cff);
+  box-shadow: 0 0 20px #ff168e50;
+  animation: logoGlow 3s ease-in-out infinite;
+}
+
+@keyframes logoGlow {
+  50% { box-shadow: 0 0 32px #ff168e90; }
+}
+
+.brand h2 {
+  font-size: 15px;
+  letter-spacing: -.3px;
+}
+
+.brand h2 span { color: var(--pink); }
+
+.brand p {
+  margin-top: 3px;
+  color: #a998a9;
+  font-size: 10px;
+}
+
+.menu {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.menu::-webkit-scrollbar { display: none; }
+
+.menu button {
+  flex: 1 0 auto;
+  padding: 9px 10px;
+  color: #c4b3c4;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: .25s ease;
+}
+
+.menu button span {
+  color: var(--pink);
+  margin-right: 4px;
+}
+
+.menu button.active,
+.menu button:hover {
+  color: white;
+  background: #ff168e18;
+  border-color: #ff3ca65e;
+  box-shadow: 0 0 14px #ff168e12;
+}
+
+/* MAIN */
+main {
+  padding: 12px 14px 24px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+.online {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 20px;
+  border: 1px solid #4ade8035;
+  color: #a7f3bd;
+  background: #4ade800b;
+  font-size: 10px;
+}
+
+.online i {
+  width: 6px;
+  height: 6px;
+  background: #4ade80;
+  border-radius: 50%;
+  box-shadow: 0 0 9px #4ade80;
+}
+
+.motion {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ff3ca640;
+  border-radius: 9px;
+  background: #ff168e0c;
+  color: var(--light);
+  cursor: pointer;
+}
+
+.hero {
+  text-align: center;
+  padding: 17px 0 15px;
+  animation: enter .7s ease both;
+}
+
+@keyframes enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-logo {
+  width: 65px;
+  height: 65px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 12px;
+  border: 1px solid #ffb4e366;
+  border-radius: 20px;
+  background: linear-gradient(145deg,#ff91d0,#ff168e 60%,#8d22e8);
+  box-shadow: 0 0 30px #ff168e38;
+  font-size: 41px;
+  font-weight: 900;
+  font-style: italic;
+  animation: float 3.5s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0) rotate(-4deg); }
+  50% { transform: translateY(-5px) rotate(2deg); }
+}
+
+.hero h1 {
+  font-size: clamp(25px,7vw,32px);
+  letter-spacing: -1px;
+  font-weight: 900;
+}
+
+.hero h1 span {
+  background: linear-gradient(90deg,#ff91d0,#ff168e,#bd4dff);
+  background-size: 200%;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: colorFlow 4s linear infinite;
+}
+
+@keyframes colorFlow {
+  to { background-position: 200% center; }
+}
+
+.hero p {
+  margin-top: 7px;
+  font-size: 11px;
+  color: #ad9bad;
+}
+
+.separator {
+  width: 65%;
+  height: 1px;
+  margin: 15px auto 0;
+  background: linear-gradient(90deg,transparent,#ff3ca6,transparent);
+}
+
+/* KEY CARD */
+.key-card {
+  padding: 19px 14px;
+  border: 1px solid #ff3ca650;
+  border-radius: 17px;
+  background:
+    radial-gradient(ellipse at top,#ff168e15,transparent 60%),
+    rgba(18,9,20,.94);
+  box-shadow: 0 12px 35px #0008, 0 0 20px #ff168e0b;
+  animation: enter .8s .1s ease both;
+}
+
+.key-title {
+  text-align: center;
+  color: var(--light);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.key-description {
+  margin: 9px 0 17px;
+  text-align: center;
+  color: #b9a8b9;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.key-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #d9b5d0;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+
+.key-box {
+  display: flex;
+  align-items: stretch;
+  gap: 5px;
+  padding: 5px;
+  border: 1px solid #ff3ca66b;
+  border-radius: 11px;
+  background: #09050b;
+  transition: .25s;
+}
+
+.key-box:focus-within,
+.key-box:hover {
+  border-color: var(--pink);
+  box-shadow: 0 0 18px #ff168e20;
+}
+
+#keyText {
+  flex: 1;
+  min-width: 0;
+  align-self: center;
+  padding: 7px;
+  color: #ffd5ec;
+  font-size: 11px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+.copy-icon {
+  flex: 0 0 35px;
+  border: 1px solid #ff3ca635;
+  border-radius: 8px;
+  background: #ff168e15;
+  color: #ff91d0;
+  cursor: pointer;
+  font-size: 16px;
+  transition: .2s;
+}
+
+.copy-icon:hover { background: #ff168e35; }
+
+.copy-button {
+  width: min(230px,100%);
+  min-height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  margin: 14px auto 0;
+  border: 1px solid #ffb4e3;
+  border-radius: 12px;
+  background: linear-gradient(110deg,#ff168e,#f044b5,#a52aff,#ff168e);
+  background-size: 220% 100%;
+  color: white;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 5px 22px #ff168e30;
+  transition: transform .25s, box-shadow .25s;
+}
+
+.copy-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px #ff168e55;
+}
+
+.copy-button:active { transform: scale(.97); }
+
+#message {
+  min-height: 15px;
+  margin-top: 10px;
+  text-align: center;
+  color: #ff91d0;
+  font-size: 10px;
+}
+
+.ready {
+  margin-top: 4px;
+  text-align: center;
+  color: #cbb3c8;
+  font-size: 10px;
+}
+
+.ready span { color: var(--pink); }
+
+/* FEATURES */
+.features {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.feature {
+  padding: 12px;
+  border: 1px solid #ff3ca62a;
+  border-radius: 11px;
+  background: #120914d9;
+  transition: .25s ease;
+}
+
+.feature:hover {
+  transform: translateY(-3px);
+  border-color: #ff3ca680;
+  box-shadow: 0 5px 20px #ff168e12;
+}
+
+.feature .symbol {
+  margin-bottom: 6px;
+  color: var(--pink);
+  font-size: 17px;
+}
+
+.feature h3 { font-size: 11px; }
+.feature p { margin-top: 4px; color: #9e8c9e; font-size: 9px; }
+
+footer {
+  padding: 17px 0 0;
+  color: #a46d92;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+/* Tiny phones */
+@media (max-width: 360px) {
+  header { padding: 10px 9px; }
+  main { padding: 10px 10px 20px; }
+  .menu button { padding: 8px 7px; font-size: 10px; }
+  .hero-logo { width: 56px; height: 56px; font-size: 35px; }
+  .hero h1 { font-size: 25px; }
+  .key-card { padding: 15px 10px; }
+  #keyText { font-size: 10px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+</style>
+</head>
+
+<body>
+<canvas id="particles"></canvas>
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+<div class="app">
+
+<header>
+  <div class="brand">
+    <div class="logo-small">S</div>
+    <div>
+      <h2>Serenity <span>Hub</span></h2>
+      <p>Premium Key System</p>
+    </div>
+  </div>
+
+  <nav class="menu">
+    <button class="active" data-target="home"><span>⌂</span> Home</button>
+    <button data-target="key"><span>⚿</span> Key</button>
+    <button data-target="features"><span>✦</span> Features</button>
+    <button data-target="support"><span>♡</span> Support</button>
+  </nav>
+</header>
+
+<main id="home">
+  <div class="topbar">
+    <div class="online"><i></i> Online</div>
+    <button class="motion" id="motionBtn" title="Toggle particles">✧</button>
+  </div>
+
+  <section class="hero">
+    <div class="hero-logo">S</div>
+    <h1>Serenity <span>Hub</span></h1>
+    <p>Unlock Your Full Potential</p>
+    <div class="separator"></div>
+  </section>
+
+  <section class="key-card" id="key">
+    <div class="key-title">⚿ &nbsp; Your Key</div>
+    <p class="key-description">
+      Your unique access key is below.<br>
+      Copy it to continue.
+    </p>
+
+    <label class="key-label" for="keyText">YOUR ACCESS KEY</label>
+
+    <div class="key-box">
+      <div id="keyText">SerenityHubKeyJsowowj - Kalapwoejejoeoeke</div>
+      <button class="copy-icon" id="copyIcon" aria-label="Copy key">▢</button>
+    </div>
+
+    <button class="copy-button" id="copyBtn">
+      <span>▢</span> Copy Key <span>→</span>
+    </button>
+
+    <p id="message" aria-live="polite"></p>
+    <div class="ready"><span>●</span> Key ready to copy</div>
+  </section>
+
+  <section class="features" id="features">
+    <article class="feature">
+      <div class="symbol">ϟ</div>
+      <h3>Fast & Stable</h3>
+      <p>Smooth experience</p>
+    </article>
+    <article class="feature">
+      <div class="symbol">⬡</div>
+      <h3>Secure</h3>
+      <p>Designed with care</p>
+    </article>
+    <article class="feature">
+      <div class="symbol">✦</div>
+      <h3>Easy to Use</h3>
+      <p>Simple and clear</p>
+    </article>
+    <article class="feature">
+      <div class="symbol">♛</div>
+      <h3>Premium</h3>
+      <p>Elegant interface</p>
+    </article>
+  </section>
+
+  <footer>— SERENITY HUB —</footer>
+</main>
+</div>
+
+<script>
+const KEY = "SerenityHubKeyJsowowj - Kalapwoejejoeoeke";
+const copyBtn = document.getElementById("copyBtn");
+const copyIcon = document.getElementById("copyIcon");
+const message = document.getElementById("message");
+let resetTimer;
+
+async function copyKey() {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(KEY);
+    } else {
+      const input = document.createElement("textarea");
+      input.value = KEY;
+      input.style.position = "fixed";
+      input.style.left = "-9999px";
+      document.body.appendChild(input);
+      input.select();
+      const success = document.execCommand("copy");
+      input.remove();
+      if (!success) throw new Error("Copy failed");
+    }
+
+    message.textContent = "✓ Key copied successfully!";
+    copyBtn.innerHTML = "<span>✓</span> Copied! <span>✦</span>";
+    copyIcon.textContent = "✓";
+  } catch {
+    message.textContent =
+      "Copy unavailable. Please select the key and copy manually.";
+  }
+
+  clearTimeout(resetTimer);
+  resetTimer = setTimeout(() => {
+    copyBtn.innerHTML = "<span>▢</span> Copy Key <span>→</span>";
+    copyIcon.textContent = "▢";
+    message.textContent = "";
+  }, 2200);
+}
+
+copyBtn.addEventListener("click", copyKey);
+copyIcon.addEventListener("click", copyKey);
+
+/* Mobile menu */
+document.querySelectorAll(".menu button").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".menu button").forEach(item =>
+      item.classList.remove("active")
+    );
+    button.classList.add("active");
+
+    const target = button.dataset.target;
+
+    if (target === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (target === "support") {
+      message.textContent = "Support links can be added here.";
+      document.getElementById("key").scrollIntoView({
+        behavior: "smooth", block: "center"
+      });
+    } else {
+      document.getElementById(target)?.scrollIntoView({
+        behavior: "smooth", block: "center"
+      });
+    }
+  });
+});
+
+/* Pink floating particles */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+let particles = [];
+let running = true;
+let frame;
+
+function resize() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  canvas.width = innerWidth * dpr;
+  canvas.height = innerHeight * dpr;
+  canvas.style.width = innerWidth + "px";
+  canvas.style.height = innerHeight + "px";
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  particles = Array.from(
+    { length: Math.min(42, Math.floor(innerWidth / 10)) },
+    () => ({
+      x: Math.random() * innerWidth,
+      y: Math.random() * innerHeight,
+      r: Math.random() * 1.5 + .5,
+      speed: Math.random() * .4 + .12,
+      drift: (Math.random() - .5) * .3,
+      alpha: Math.random() * .5 + .2
+    })
+  );
+}
+
+function draw() {
+  ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+  for (const p of particles) {
+    p.y -= p.speed;
+    p.x += p.drift;
+
+    if (p.y < -5) {
+      p.y = innerHeight + 5;
+      p.x = Math.random() * innerWidth;
+    }
+
+    if (p.x < 0) p.x = innerWidth;
+    if (p.x > innerWidth) p.x = 0;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,60,166,${p.alpha})`;
+    ctx.shadowBlur = 9;
+    ctx.shadowColor = "#ff168e";
+    ctx.fill();
+  }
+
+  ctx.shadowBlur = 0;
+
+  if (running) frame = requestAnimationFrame(draw);
+}
+
+resize();
+draw();
+window.addEventListener("resize", resize);
+
+document.getElementById("motionBtn").addEventListener("click", () => {
+  running = !running;
+
+  if (running) {
+    draw();
+    document.getElementById("motionBtn").textContent = "✧";
+  } else {
+    cancelAnimationFrame(frame);
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    document.getElementById("motionBtn").textContent = "○";
+  }
+});
+</script>
+</body>
+</html>
